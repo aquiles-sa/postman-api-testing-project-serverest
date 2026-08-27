@@ -16,54 +16,33 @@ O objetivo do projeto é avaliar o comportamento funcional dos endpoints dos mó
 
 O escopo do projeto contém a arquitetura de organização dos três módulos utilizados para testes: **Login**, **Usuários** e **Produtos**.
 
-
-
 - **Login**
-  
   - Login com credenciais válidas
-  
   - Login com credenciais inválidas
-  
   - Validações de credenciais
 
 - **Usuários**
-  
   - Cadastro
-  
   - Consulta
-  
   - Atualização
-  
   - Exclusão
-  
   - Validação de credenciais
 
 - **Produtos**
-  
   - Cadastro
-  
   - Consulta
-  
   - Atualização
-  
   - Exclusão
-  
   - Validação de credenciais
-
-
 
 ---
 
 ## Ferramentas Utilizadas
 
 - Postman
-
 - JavaScript Assertions
-
 - Markdown
-
 - Git
-
 - GitHub
 
 ---
@@ -71,8 +50,6 @@ O escopo do projeto contém a arquitetura de organização dos três módulos ut
 ## Collections e Environment do Postman
 
 As collections exportadas do Postman correspondem aos módulos de Login, Usuários e Produtos. Estão disponíveis em `postman/collections`.
-
-
 
 Apenas uma environment foi exportada do Postman. Ela contém variáveis que são utilizadas pelos três módulos e em requisições. Está disponível em `postman/environments`
 
@@ -123,9 +100,7 @@ As evidências de defeitos estão localizadas em `postman/evidencias`.
 
 ## Limitações
 
-> Os testes foram criados e executados utilizando a API ServRest. Por se tratar de uma API pública e compartilhada, os dados podem sofrer alterações decorrentes da utilização da API por outros usuários. Com o conhecimento disto, foi utilizada uma estratégia para geração dinâmica de dados, visando menor dependência de massas registradas anteriormente. 
-
-
+> Os testes foram criados e executados utilizando a API ServRest. Por se tratar de uma API pública e compartilhada, os dados podem sofrer alterações decorrentes da utilização da API por outros usuários. Com o conhecimento disto, foi utilizada uma estratégia para geração dinâmica de dados, visando menor dependência de massas registradas anteriormente.
 
 ---
 
@@ -133,10 +108,13 @@ As evidências de defeitos estão localizadas em `postman/evidencias`.
 
 Este projeto demonstra conhecimento e habilidades de testes de software, especialmente em testes de API e de documentação de testes, exibindo a aplicação das atividades de teste, como o planejamento de teste, análise de teste, modelagem de teste, implementação de teste, execução de teste e conclusão de teste.
 
+Os testes realizados forneceram evidências de comportamentos dos módulos avaliados dentro do escopo definido. Isso não afirma que a API esteja livre de defeitos.
 
+É válido ressaltar que este projeto não está finalizado. O módulo de Carrinhos, exibido na API ServeRest, não está dentro do escopo do projeto.
 
-Os testes realizados forneceram evidências de comportamentos dos módulos avaliados dentro do escopo definido. Isso não afirma que a API esteja livre de defeitos. 
+---
 
+## Autor
 
-
-É válido ressaltar que este projeto não está finalizado. O módulo de Carrinhos, exibido na API ServeRest, não está dentro do escopo do projeto. 
+QA: Aquiles Araujo | [LinkedIn](https://www.linkedin.com/in/aquiles-araujo-035112251/) <br>
+Email: aquiles2ws@gmail.com
