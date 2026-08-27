@@ -1,0 +1,766 @@
+{
+  "info": {
+    "_postman_id": "2f55f229-ca3c-4a00-9409-43e4b1c94327",
+    "name": "Usuarios",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "33962338"
+  },
+  "item": [
+    {
+      "name": "cadastro",
+      "item": [
+        {
+          "name": "tc-usu-001 | Cadastro válido de usuário",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\nconst getId = responseBody._id;\r\n\r\npm.collectionVariables.set(\"id_usuario\", getId);\r\n\r\npm.test(\"Status code is 201\", function () {\r\n    pm.response.to.have.status(201);\r\n});\r\n\r\npm.test(\"A mensagem da resposta: 'Cadastro realizado com sucesso'\", function () {\r\n    pm.expect(responseBody.message).to.eql(\"Cadastro realizado com sucesso\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"nome\": \"{{$randomFullName}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"password\": \"{{$randomPassword}}\",\r\n    \"administrador\": \"false\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/usuarios",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "usuarios"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "tc-usu-002 | Cadastro de usuário com e-mail duplicado",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test('Mensagem da resposta: \"Este email já está sendo usado\"', function() {\r\n    pm.expect(responseBody.message).to.eql(\"Este email já está sendo usado\")\r\n});\r\n\r\n"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const getResponse = await pm.sendRequest({\r\n    url: pm.environment.get(\"base_url\") + \"/usuarios\",\r\n    method: \"GET\",\r\n});\r\n\r\nconst responseBody = getResponse.json();\r\n\r\nconst usersQuantity = responseBody.usuarios.length;\r\nconst randomUserIndex = Math.floor(Math.random() * usersQuantity);\r\n\r\nlet getRandomEmail = responseBody.usuarios[randomUserIndex].email;\r\npm.environment.set(\"random_existing_email\", getRandomEmail);\r\n\r\n\r\n"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome\": \"João da Silva\",\r\n  \"email\": \"{{random_existing_email}}\",\r\n  \"password\": \"senhadois\",\r\n  \"administrador\": \"true\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/usuarios",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "usuarios"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "tc-usu-003 | Cadastro de usuário com nome sem valor",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test('Mensagem da resposta: \"nome não pode ficar em branco\"')"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome\": \"\",\r\n  \"email\": \"testandoEmail@qa.com.br\",\r\n  \"password\": \"senhatres\",\r\n  \"administrador\": \"true\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/usuarios",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "usuarios"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "tc-usu-004 | Cadastro de usuário com email sem valor",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test('Mensagem da resposta: \"email não pode ficar em branco\"', function () {\r\n    pm.expect(responseBody.email).to.eql(\"email não pode ficar em branco\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome\": \"Antonio Costa\",\r\n  \"email\": \"\",\r\n  \"password\": \"senhaquatro\",\r\n  \"administrador\": \"true\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/usuarios",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "usuarios"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "tc-usu-005 | Cadastro de usuário com senha sem valor",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test('Mensagem da resposta: \"senha não pode ficar em branco\"', function () {\r\n    pm.expect(responseBody.password).to.eql(\"password não pode ficar em branco\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome\": \"Asdrubal\",\r\n  \"email\": \"emailQualidade@qa.com\",\r\n  \"password\": \"\",\r\n  \"administrador\": \"true\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/usuarios",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "usuarios"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "tc-usu-006 | Cadastro de usuário com administrador sem valor",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test('Mensagem da resposta: \"administrador não pode ficar em branco\"', function () {\r\n    pm.expect(responseBody.administrador).to.eql(\"administrador deve ser 'true' ou 'false'\");\r\n});\r\n"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome\": \"Joselino\",\r\n  \"email\": \"emailSoftware@qa.com\",\r\n  \"password\": \"senhaTestando\",\r\n  \"administrador\": \"\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/usuarios",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "usuarios"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "consulta",
+      "item": [
+        {
+          "name": "tc-usu-007 | Retornar todos os usuários cadastrados",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\nconst usersQuantity = responseBody.usuarios.length;\r\nconst randomUserIndex = Math.floor(Math.random() * usersQuantity);\r\n\r\nlet getRandomEmail = responseBody.usuarios[randomUserIndex].email;\r\nlet getRandomId = responseBody.usuarios[randomUserIndex]._id;\r\n\r\npm.collectionVariables.set(\"random_existing_email\", getRandomEmail);\r\npm.collectionVariables.set(\"random_existing_id\", getRandomId);\r\n\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Quantidade de usuários é maior que zero\", function () {\r\n    pm.expect(responseBody.quantidade).to.be.greaterThan(0);\r\n});\r\n\r\npm.test(\"Lista de usuários não está vazia\", function () {\r\n    pm.expect(responseBody.usuarios).length.to.be.greaterThan(0)\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/usuarios",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "usuarios"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "tc-usu-008 | Buscar um usuário pelo identificador",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Usuário foi retornado corretamente\", function () {\r\n    pm.expect(responseBody.nome).to.exist;\r\n    pm.expect(responseBody.email).to.exist;\r\n    pm.expect(responseBody.password).to.exist;\r\n    pm.expect(responseBody._id).to.exist;\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/usuarios/{{id_usuario}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "usuarios",
+                "{{id_usuario}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "tc-usu-009 | Buscar um usuário inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseBody = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Status code is 404\", function () {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Mensagem da resposta: 'Usuário não encontrado'\", function () {\r",
+                  "    pm.expect(responseBody.message).to.eql(\"Usuário não encontrado\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/usuarios/B3nT7yK1pQ9vH5cM",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "usuarios",
+                "B3nT7yK1pQ9vH5cM"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "tc-usu-010 | Buscar um usuário por um identificador inválido",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Mensagem da resposta: 'id deve ter exatamente 16 caracteres alfanuméricos'\", function () {\r\n    pm.expect(responseBody.id).to.eql(\"id deve ter exatamente 16 caracteres alfanuméricos\");\r\n});\r\n"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/usuarios/{{id:683er}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "usuarios",
+                "{{id:683er}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "atualizacao",
+      "item": [
+        {
+          "name": "tc-usu-011 | Atualizar usuário existente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200)\r\n})\r\n\r\npm.test(\"A mensagem da resposta: 'Registro alterado com sucesso'\", function () {\r\n    pm.expect(responseBody.message).to.eql(\"Registro alterado com sucesso\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\"nome\": \"Gustavo Almeida Rocha\",\r\n\"email\": \"{{$randomEmail}}\",\r\n\"password\": \"QaTesteI09\",\r\n\"administrador\": \"true\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/usuarios/{{random_existing_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "usuarios",
+                "{{random_existing_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "tc-usu-012 | Atualizar usuário com email já existente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"A mensagem da resposta: 'Este email já está sendo usado'\", function () {\r\n    pm.expect(responseBody.message).to.eql(\"Este email já está sendo usado\");\r\n});\r\n"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome\": \"Kakashi Hatake\",\r\n  \"email\": \"{{random_existing_email}}\",\r\n  \"password\": \"teste3\",\r\n  \"administrador\": \"true\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/usuarios/{{id_usuario}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "usuarios",
+                "{{id_usuario}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "tc-usu-013 | Atualizar usuário com identificador inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 201\", function () {\r\n    pm.response.to.have.status(201);\r\n});\r\n\r\npm.test(\"A mensagem da resposta: 'Cadastro realizado com sucesso'\", function () {\r\n    pm.expect(responseBody.message).to.eql(\"Cadastro realizado com sucesso\");\r\n    pm.expect(responseBody._id).to.exist;\r\n});\r\n"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\"nome\": \"Renata Barbosa Martins\",\r\n\"email\": \"{{$randomEmail}}\",\r\n\"password\": \"QaTesteJ10\",\r\n\"administrador\": \"false\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/usuarios/12328930873",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "usuarios",
+                "12328930873"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "tc-usu-014 | Atualizar usuário com nome sem valor",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"A mensagem da resposta: 'nome não pode ficar em branco'\", function () {\r\n    pm.expect(responseBody.nome).to.eql(\"nome não pode ficar em branco\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"nome\": \"\",\r\n    \"email\": \"umnovoemail@qa.com.br\",\r\n    \"password\": \"testando21\",\r\n    \"administrador\": \"false\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/usuarios/{{id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "usuarios",
+                "{{id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "tc-usu-015 | Atualizar usuário com email sem valor",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"A mensagem da resposta: 'email não pode ficar em branco'\", function () {\r\n    pm.expect(responseBody.email).to.eql(\"email não pode ficar em branco\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"nome\": \"Nico De La Hoya\",\r\n    \"email\": \"\",\r\n    \"password\": \"testesenha10\",\r\n    \"administrador\": \"false\"\r\n}    ",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/usuarios/{{id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "usuarios",
+                "{{id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "tc-usu-016 | Atualizar usuário com senha sem valor",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"A mensagem da resposta: 'password não pode ficar em branco'\", function () {\r\n    pm.expect(responseBody.password).to.eql(\"password não pode ficar em branco\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"nome\": \"Eliseu\",\r\n    \"email\": \"elis123@qa.com.br\",\r\n    \"password\": \"\",\r\n    \"administrador\": \"true\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/usuarios/{{id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "usuarios",
+                "{{id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "tc-usu-017 | Atualizar usuário com administrador sem valor",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"A mensagem da resposta: 'administrador deve ser 'true' ou 'false''\", function () {\r\n    pm.expect(responseBody.administrador).to.eql(\"administrador deve ser 'true' ou 'false'\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"nome\": \"Lucas de Oliveira\",\r\n    \"email\": \"lucasoli20@qa.com.br\",\r\n    \"password\": \"respon\",\r\n    \"administrador\": \"\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/usuarios/{{id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "usuarios",
+                "{{id}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "exclusao",
+      "item": [
+        {
+          "name": "tc-usu-018 | Excluir um usuário",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"A mensagem da resposta: 'Registro excluído com sucesso'\", function () {\r\n    pm.expect(responseBody.message).to.eql(\"Registro excluído com sucesso\");\r\n});\r\n\r\n"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/usuarios/{{id_usuario}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "usuarios",
+                "{{id_usuario}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "tc-usu-019 | Excluir um usuário por identificador inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"A mensagem da resposta: 'Nenhum registro excluído'\", function () {\r\n    pm.expect(responseBody.message).to.eql(\"Nenhum registro excluído\");\r\n});\r\n\r\n"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/usuarios/{{id:2323232}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "usuarios",
+                "{{id:2323232}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "id_usuario",
+      "value": ""
+    },
+    {
+      "key": "random_existing_email",
+      "value": ""
+    },
+    {
+      "key": "random_existing_id",
+      "value": ""
+    }
+  ]
+}
