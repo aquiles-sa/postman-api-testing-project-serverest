@@ -5,7 +5,7 @@
 | **ID**                   | TC-PRO-011                                                              |
 | **Condição Relacionada** | CND-PRO-033                                                             |
 | **Prioridade**           | Alta                                                                    |
-| **Tipo de Teste**        | Funcional - Positivo                                                    |
+| **Tipo de Teste**        | Funcional - Negativo                                                    |
 | **Objetivo**             | Validar que a API não retorne um produto por um identificador inválido. |
 | **Método HTTP**          | `GET`                                                                   |
 | **Endpoint**             | `/produtos/_id`                                                         |
