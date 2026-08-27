@@ -1,0 +1,52 @@
+# TC-USU-006 - Cadastro de usuário com o campo de administrador sem valor
+
+| Item                     | Valor                                                                                                 |
+| ------------------------ | ----------------------------------------------------------------------------------------------------- |
+| **ID**                   | TC-USU-006                                                                                            |
+| **Condição Relacionada** | CND-USU-011                                                                                           |
+| **Prioridade**           | Alta                                                                                                  |
+| **Tipo de Teste**        | Funcional - Negativo                                                                                  |
+| **Objetivo**             | Validar que a API não permita que um usuário realize cadastro com o campo de administrador sem valor. |
+| **Método HTTP**          | `POST`                                                                                                |
+| **Endpoint**             | `/usuarios`                                                                                           |
+
+---
+
+## Pré-condições
+
+- API disponível
+
+- O e-mail utilizado na requisição não deve estar previamente cadastrado
+
+---
+
+## Massa de Teste
+
+```json
+{
+  "nome": "Joselino",
+  "email": "emailSoftware@qa.com",
+  "password": "senhaTestando",
+  "administrador": ""
+}
+```
+
+---
+
+## Passos
+
+1. Enviar uma requisição HTTP `POST`para o endpoint `/usuarios`,
+
+2. Não preencher o campo `administrador`,
+
+3. Preencher todos os campos restantes,
+
+4. Executar a requisição.
+
+---
+
+## Resultado Esperado
+
+- Status Code `400`
+
+- A resposta deve ter como mensagem `administrador não pode ficar em branco`
