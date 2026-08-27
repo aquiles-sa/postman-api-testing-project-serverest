@@ -163,6 +163,6 @@ Exemplo de _Request Body_ de cadastro de produtos: <br>
 
 | Módulo      | Quantidade de Condições |
 | ----------- | -----------------------:|
-| **Login**   | 7                       |
+| **Login**   | 5                       |
 | **Usuário** | 18                      |
 | **Produto** | 20                      |
