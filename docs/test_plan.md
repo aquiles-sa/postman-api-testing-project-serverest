@@ -14,7 +14,7 @@
 
 ## 2. Objetivo
 
-Garantir que as funcionalidades da API do ServeRest atendam aos requisitos funcionais especificados, apresentem comportamentos consistentes, retornem respostas corretas para diferentes cenários de utilização e validar status codes, payloads, regras de negócio e mensagens retornadas pela API. 
+Garantir que as funcionalidades da API do ServeRest atendam aos requisitos funcionais especificados, apresentem comportamentos consistentes, retornem respostas corretas para diferentes cenários de utilização e validar status codes, payloads, regras de negócio e mensagens retornadas pela API.
 
 ---
 
@@ -39,7 +39,7 @@ Garantir que as funcionalidades da API do ServeRest atendam aos requisitos funci
 - Consulta de produtos
 - Consulta de produtos pelo identificador
 - Edição de produto específico
-- Remoção produto específico 
+- Remoção produto específico
 
 ---
 
@@ -49,7 +49,7 @@ Serão executados testes manuais utilizando a ferramenta Postman.
 
 Os testes serão organizados em Collections serão automatizados utilizando Scripts de Test e Collection Runner.
 
-Os resultados serão documentados ao término da execução. 
+Os resultados serão documentados ao término da execução.
 
 ## 5. Tipos de Teste
 
@@ -73,12 +73,12 @@ Os resultados serão documentados ao término da execução.
 
 ## 7. Critérios de Entrada
 
-Os testes poderão ser iniciados se todos os critérios de 
+Os testes poderão ser iniciados se todos os critérios de
 entrada forem atendidos:
 
 - API disponível;
 - Documentação da API disponível;
-- Endpoints publicados. 
+- Endpoints publicados.
 
 ## 8. Critérios de Saída
 
@@ -103,5 +103,4 @@ Artefatos que serão produzidos ao longo da execução dos testes:
 - Cenários de Teste
 - Casos de Teste
 - Bug Report
-- Relatório Final
-- README do Projeto
+- README do Projeto (Relatório Final)
