@@ -1,0 +1,305 @@
+{
+  "info": {
+    "_postman_id": "538b74b2-6f2a-4ddd-b1c7-667c33fbe4d9",
+    "name": "Login",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "33962338"
+  },
+  "item": [
+    {
+      "name": "tc-log-001 | Login de usuário válido",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"A mensagem da resposta: 'Login realizado com sucesso\", function () {\r\n    pm.expect(responseBody.message).to.eql(\"Login realizado com sucesso\");\r\n});\r\n\r\npm.test(\"Bearer token foi gerado\", function() {\r\n    pm.expect(responseBody.authorization).to.exist;\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"{{user_email}}\",\r\n  \"password\": \"{{user_password}}\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/login",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "tc-log-002 | Login com senha inválida",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 401\", function () {\r\n    pm.response.to.have.status(401);\r\n});\r\n\r\npm.test(\"A mensagem da resposta: 'Email e/ou senha inválidos\", function () {\r\n    pm.expect(responseBody.message).to.eql(\"Email e/ou senha inválidos\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"fulano@qa.com\",\r\n  \"password\": \"SenhaErrada123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/login",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "tc-log-003 | Login com email não cadastrado",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 401\", function () {\r\n    pm.response.to.have.status(401);\r\n});\r\n\r\npm.test(\"A mensagem da resposta: 'Email e/ou senha inválidos\", function () {\r\n    pm.expect(responseBody.message).to.eql(\"Email e/ou senha inválidos\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"emailnaocadastrado@qa.com\",\r\n    \"password\": \"teste\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/login",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "tc-log-004 | Login com credenciais não preenchidas",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Mensagens de falta de preenchimento dos campos estão corretas\", function () {\r\n    pm.expect(responseBody.email).to.eql(\"email não pode ficar em branco\");\r\n    pm.expect(responseBody.password).to.eql(\"password não pode ficar em branco\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"\",\r\n    \"password\": \"\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/login",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "tc-log-005 | Login com senha sem valor",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Mensagem de falta de preenchimento do campo password correta\", function () {\r\n    pm.expect(responseBody.password).to.eql(\"password não pode ficar em branco\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"fulano@qa.com\",\r\n    \"password\": \"\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/login",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "tc-log-006 | Login com senha preenchida por tipo de dado inválido",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Mensagem de preenchimento de dado inválido do campo password correta\", function () {\r\n    pm.expect(responseBody.password).to.eql(\"password deve ser uma string\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"fulano@qa.com\",\r\n    \"password\": 1234\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/login",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "tc-log-007 | Login com email sem valor",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Mensagem de falta de preenchimento do campo email correta\", function () {\r\n    pm.expect(responseBody.email).to.eql(\"email não pode ficar em branco\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"\",\r\n    \"password\": \"teste\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/login",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "login"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "exec": [
+          "const randomName = pm.variables.replaceIn(\"{{$randomFullName}}\")\r",
+          "const randomEmail = pm.variables.replaceIn(\"{{$randomEmail}}\");\r",
+          "const randomPassword = pm.variables.replaceIn(\"{{$randomPassword}}\");\r",
+          "const randomBoolean = pm.variables.replaceIn(\"{{$randomBoolean}}\")\r",
+          "\r",
+          "const response = pm.sendRequest({\r",
+          "    url: \"https://serverest.dev/usuarios\",\r",
+          "    method: \"POST\",\r",
+          "    header: {\r",
+          "        \"Content-Type\": \"application/json\"\r",
+          "    },\r",
+          "    body: {\r",
+          "        mode: \"raw\",\r",
+          "        raw: JSON.stringify({\r",
+          "            \"nome\": randomName,\r",
+          "            \"email\": randomEmail,\r",
+          "            \"password\": randomPassword,\r",
+          "            \"administrador\": randomBoolean\r",
+          "        })\r",
+          "    }\r",
+          "})\r",
+          "\r",
+          "pm.environment.set(\"user_email\", randomEmail);\r",
+          "pm.environment.set(\"user_password\", randomPassword);\r",
+          "\r",
+          ""
+        ],
+        "type": "text/javascript"
+      }
+    }
+  ]
+}
