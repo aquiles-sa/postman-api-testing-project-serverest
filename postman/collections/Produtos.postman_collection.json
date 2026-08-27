@@ -1,0 +1,2820 @@
+{
+  "info": {
+    "_postman_id": "c270d0fc-89e9-4c2c-8a05-621276f9db8a",
+    "name": "Produtos",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "33962338"
+  },
+  "item": [
+    {
+      "name": "cadastro",
+      "item": [
+        {
+          "name": "tc-pro-001 | Cadastro válido de produto",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\nconst getId = responseBody._id;\r\npm.collectionVariables.set(\"id_produto\", getId);\r\n\r\npm.test(\"Status code is 201\", function () {\r\n    pm.response.to.have.status(201);\r\n});\r\n\r\npm.test(\"Mensagem de cadastro válido realizado com sucesso\", function () {\r\n    pm.expect(responseBody.message).to.eql(\"Cadastro realizado com sucesso\");\r\n});\r\n\r\npm.test(\"Identificador do produto gerado com sucesso\", function () {\r\n    pm.expect(responseBody._id).to.exist; \r\n    pm.expect(responseBody._id).to.not.be.null; \r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome\": \"{{$randomProductName}}\",\r\n  \"preco\": 362,\r\n  \"descricao\": \"{{$randomProductAdjective}}\",\r\n  \"quantidade\": 232\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/produtos",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "produtos"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "tc-pro-001 | Cadastro válido de produto",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"Lenovo Ideapad\",\r\n  \"preco\": 330,\r\n  \"descricao\": \"Notebook\",\r\n  \"quantidade\": 297\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/produtos",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "produtos"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "1; mode=block"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "x-cloud-trace-context",
+                  "value": "1a96d9020d084c96f4315b392df85905"
+                },
+                {
+                  "key": "date",
+                  "value": "Thu, 13 Aug 2026 14:31:57 GMT"
+                },
+                {
+                  "key": "server",
+                  "value": "Google Frontend"
+                },
+                {
+                  "key": "content-length",
+                  "value": "82"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Cadastro realizado com sucesso\",\n  \"_id\": \"77Hzd0U7ujL8M3Rw\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "tc-pro-002 | Cadastro de produto com nome sem valor",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Mensagem de falta de preenchimento de nome é exibida\", function () {\r\n    pm.expect(responseBody.nome).to.eql(\"nome não pode ficar em branco\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome\": \"\",\r\n  \"preco\": 70,\r\n  \"descricao\": \"Teclado\",\r\n  \"quantidade\": 131\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/produtos",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "produtos"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "tc-pro-002 | Cadastro de produto com nome sem valor",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"\",\r\n  \"preco\": 70,\r\n  \"descricao\": \"Teclado\",\r\n  \"quantidade\": 131\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/produtos",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "produtos"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "1; mode=block"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "x-cloud-trace-context",
+                  "value": "08974da6fcab68cb06ac9f5ea6d0441a;o=1"
+                },
+                {
+                  "key": "date",
+                  "value": "Thu, 13 Aug 2026 15:00:43 GMT"
+                },
+                {
+                  "key": "server",
+                  "value": "Google Frontend"
+                },
+                {
+                  "key": "content-length",
+                  "value": "48"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"nome\": \"nome não pode ficar em branco\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "tc-pro-003 | Cadastro de produto com preço em branco",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Mensagem de falta de preenchimento de preço é exibida\", function () {\r\n    pm.expect(responseBody.preco).to.eql(\"preco deve ser um número\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome\": \"LG Oled\",\r\n  \"preco\": \"\",\r\n  \"descricao\": \"Televisão\",\r\n  \"quantidade\": 131\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/produtos",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "produtos"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "tc-pro-003 | Cadastro de produto com preço em branco",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"LG Oled\",\r\n  \"preco\": \"\",\r\n  \"descricao\": \"Televisão\",\r\n  \"quantidade\": 131\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/produtos",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "produtos"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "1; mode=block"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "x-cloud-trace-context",
+                  "value": "71fb40a2b979fab4e0a6793efcb943e7"
+                },
+                {
+                  "key": "date",
+                  "value": "Thu, 13 Aug 2026 15:20:28 GMT"
+                },
+                {
+                  "key": "server",
+                  "value": "Google Frontend"
+                },
+                {
+                  "key": "content-length",
+                  "value": "44"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"preco\": \"preco deve ser um número\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "tc-pro-004 | Cadastro de produto com preço com valor negativo",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Mensagem de falta de preenchimento de preço com valor é exibida\", function () {\r\n    pm.expect(responseBody.preco).to.eql(\"preco deve ser um número positivo\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome\": \"LG Oled\",\r\n  \"preco\": -33,\r\n  \"descricao\": \"Televisão\",\r\n  \"quantidade\": 131\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/produtos",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "produtos"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "tc-pro-004 | Cadastro de produto com preço com valor negativo",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"LG Oled\",\r\n  \"preco\": -33,\r\n  \"descricao\": \"Televisão\",\r\n  \"quantidade\": 131\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/produtos",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "produtos"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "1; mode=block"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "x-cloud-trace-context",
+                  "value": "6e4afdd62fd905cb08c038337a2de095;o=1"
+                },
+                {
+                  "key": "date",
+                  "value": "Thu, 13 Aug 2026 15:24:20 GMT"
+                },
+                {
+                  "key": "server",
+                  "value": "Google Frontend"
+                },
+                {
+                  "key": "content-length",
+                  "value": "53"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"preco\": \"preco deve ser um número positivo\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "tc-pro-005 | Cadastro de produto com descrição em branco",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Mensagem de falta de preenchimento de descrição é exibida\", function () {\r\n    pm.expect(responseBody.descricao).to.eql(\"descricao não pode ficar em branco\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome\": \"{{$randomProductName}}\",\r\n  \"preco\": 2000,\r\n  \"descricao\": \"\",\r\n  \"quantidade\": 110\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/produtos",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "produtos"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "tc-pro-005 | Cadastro de produto com descrição em branco",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"Xbox One\",\r\n  \"preco\": 2000,\r\n  \"descricao\": \"\",\r\n  \"quantidade\": 110\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/produtos",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "produtos"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "1; mode=block"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "x-cloud-trace-context",
+                  "value": "f8505bc684b8568e9432f7adcd246924"
+                },
+                {
+                  "key": "date",
+                  "value": "Thu, 13 Aug 2026 15:26:50 GMT"
+                },
+                {
+                  "key": "server",
+                  "value": "Google Frontend"
+                },
+                {
+                  "key": "content-length",
+                  "value": "58"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"descricao\": \"descricao não pode ficar em branco\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "tc-pro-006 | Cadastro de produto com quantidade sem valor",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Mensagem de falta de preenchimento de descrição é exibida\", function () {\r\n    pm.expect(responseBody.quantidade).to.eql(\"quantidade deve ser um número\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome\": \"Xbox One\",\r\n  \"preco\": 2000,\r\n  \"descricao\": \"Console de Jogos\",\r\n  \"quantidade\": \"\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/produtos",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "produtos"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "tc-pro-006 | Cadastro de produto com quantidade sem valor",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"Xbox One\",\r\n  \"preco\": 2000,\r\n  \"descricao\": \"Console de Jogos\",\r\n  \"quantidade\": \"\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/produtos",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "produtos"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "1; mode=block"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "x-cloud-trace-context",
+                  "value": "126596bf739299d168a0ab5f05fb0ab2"
+                },
+                {
+                  "key": "date",
+                  "value": "Thu, 13 Aug 2026 15:29:54 GMT"
+                },
+                {
+                  "key": "server",
+                  "value": "Google Frontend"
+                },
+                {
+                  "key": "content-length",
+                  "value": "54"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"quantidade\": \"quantidade deve ser um número\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "tc-pro-007 | Cadastro de produto já registrado",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Mensagem de produto com nome já existente é exibida\", function () {\r\n    pm.expect(responseBody.message).to.eql(\"Já existe produto com esse nome\"); \r\n});\r\n"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const getIdProduto  = pm.collectionVariables.get(\"id_produto\"); \r\n\r\nconst getResponse = await pm.sendRequest({\r\n    url: \"https://serverest.dev/produtos/\" + getIdProduto,\r\n    method: \"GET\"\r\n});\r\n\r\nconst getNomeProduto = getResponse.json().nome;\r\npm.collectionVariables.set(\"nome_produto\", getNomeProduto);\r\n\r\nconst postResponse = await pm.sendRequest({\r\n    url: \"https://serverest.dev/produtos\",\r\n    method: \"POST\",\r\n    header: {\r\n        \"Content-Type\": \"application/json\"\r\n    },\r\n    body: {\r\n        mode: \"raw\",\r\n        raw: JSON.stringify({\r\n            \"nome\": getNomeProduto,\r\n            \"preco\": 362,\r\n            \"descricao\": \"{{$randomProductAdjective}}\",\r\n            \"quantidade\": 232\r\n        })\r\n    }\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome\": \"{{nome_produto}}\",\r\n  \"preco\": 330,\r\n  \"descricao\": \"Notebook\",\r\n  \"quantidade\": 297\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/produtos",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "produtos"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "tc-pro-007 | Cadastro de produto já registrado",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"Lenovo Vision\",\r\n  \"preco\": 330,\r\n  \"descricao\": \"Notebook\",\r\n  \"quantidade\": 297\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/produtos",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "produtos"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "1; mode=block"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "x-cloud-trace-context",
+                  "value": "9be12b4d80379ca328421f0442e0c23d"
+                },
+                {
+                  "key": "date",
+                  "value": "Thu, 13 Aug 2026 15:33:01 GMT"
+                },
+                {
+                  "key": "server",
+                  "value": "Google Frontend"
+                },
+                {
+                  "key": "content-length",
+                  "value": "53"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Já existe produto com esse nome\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "consulta",
+      "item": [
+        {
+          "name": "tc-pro-008 | Listar todos os produtos cadastrados",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Quantidade de produtos em exibição e acima de zero\", function() {\r\n    pm.expect(responseBody.quantidade).to.exist;\r\n    pm.expect(responseBody.quantidade).to.be.above(0)\r\n});\r\n\r\npm.test(\"Lista de produtos é exibida\", function () {\r\n    pm.expect(responseBody.produtos).to.exist;\r\n    pm.expect(responseBody.produtos.length).to.be.greaterThanOrEqual(1)\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/produtos",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "produtos"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "tc-pro-008 | Listar todos os produtos cadastrados",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/produtos",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "produtos"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "1; mode=block"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "x-cloud-trace-context",
+                  "value": "75cd5f5834e5d81aa1a119ff892b7d26;o=1"
+                },
+                {
+                  "key": "date",
+                  "value": "Thu, 13 Aug 2026 18:44:19 GMT"
+                },
+                {
+                  "key": "server",
+                  "value": "Google Frontend"
+                },
+                {
+                  "key": "content-length",
+                  "value": "8969"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"quantidade\": 44,\n  \"produtos\": [\n    {\n      \"nome\": \"Produto Teste cbee424f\",\n      \"preco\": 100,\n      \"descricao\": \"Descrição de produto para testes\",\n      \"quantidade\": 10,\n      \"_id\": \"2LMvvQi55NI53uJJ\"\n    },\n    {\n      \"nome\": \"PA da_239_2107@qatest.com\",\n      \"preco\": 600,\n      \"descricao\": \"a\",\n      \"quantidade\": 12,\n      \"_id\": \"2POGDYCckkRQBkIy\"\n    },\n    {\n      \"nome\": \"Produto Teste 2e1c221f\",\n      \"preco\": 100,\n      \"descricao\": \"Descrição de produto para testes\",\n      \"quantidade\": 10,\n      \"_id\": \"2yPJb5wtX4dZuj5q\"\n    },\n    {\n      \"nome\": \"RcptItem one rtSp7ZUeCmbLIObu\",\n      \"preco\": 600,\n      \"descricao\": \"receipt fixture\",\n      \"quantidade\": 12,\n      \"_id\": \"6ZqDp4RYv1uJKUbh\"\n    },\n    {\n      \"nome\": \"Widget benchunxw89xh\",\n      \"preco\": 310,\n      \"descricao\": \"bench widget\",\n      \"quantidade\": 18,\n      \"_id\": \"6mBYnHYNIbh0GNyn\"\n    },\n    {\n      \"nome\": \"Lenovo Ideapad\",\n      \"preco\": 330,\n      \"descricao\": \"Notebook\",\n      \"quantidade\": 297,\n      \"_id\": \"77Hzd0U7ujL8M3Rw\"\n    },\n    {\n      \"nome\": \"RefItem0 c61d495a\",\n      \"preco\": 3001,\n      \"descricao\": \"r\",\n      \"quantidade\": 8,\n      \"_id\": \"7fYex66Qh3kpcKgp\"\n    },\n    {\n      \"nome\": \"Lenovo Ideapad Gaming\",\n      \"preco\": 330,\n      \"descricao\": \"Notebook\",\n      \"quantidade\": 297,\n      \"_id\": \"9WXHu0ADYolu5NrT\"\n    },\n    {\n      \"nome\": \"W fxpkgafapi\",\n      \"preco\": 100,\n      \"descricao\": \"d\",\n      \"quantidade\": 15,\n      \"_id\": \"ADKmAT7UjuAHXpYv\"\n    },\n    {\n      \"nome\": \"RefItem1 c61d495a\",\n      \"preco\": 4002,\n      \"descricao\": \"r\",\n      \"quantidade\": 7,\n      \"_id\": \"AgSRjo2O3D72SVmZ\"\n    },\n    {\n      \"nome\": \"RefItem1 f6ed5511\",\n      \"preco\": 4002,\n      \"descricao\": \"r\",\n      \"quantidade\": 7,\n      \"_id\": \"AtIGNUcrkPY8jOeL\"\n    },\n    {\n      \"nome\": \"Logitech MX Vertical\",\n      \"preco\": 470,\n      \"descricao\": \"Mouse\",\n      \"quantidade\": 382,\n      \"_id\": \"BeeJh5lz3k6kSIzA\"\n    },\n    {\n      \"nome\": \"Lenovo New Vision\",\n      \"preco\": 330,\n      \"descricao\": \"Notebook\",\n      \"quantidade\": 297,\n      \"_id\": \"C7LWY3Df5kj4x7c5\"\n    },\n    {\n      \"nome\": \"PA db2_251_26330@qatest.com\",\n      \"preco\": 600,\n      \"descricao\": \"a\",\n      \"quantidade\": 12,\n      \"_id\": \"D6MViNHcppxJQaFO\"\n    },\n    {\n      \"nome\": \"Samsung 60 polegadas\",\n      \"preco\": 5240,\n      \"descricao\": \"TV\",\n      \"quantidade\": 49977,\n      \"_id\": \"K6leHdftCeOJj8BJ\"\n    },\n    {\n      \"nome\": \"Pack Widget Beta\",\n      \"preco\": 40,\n      \"descricao\": \"widget\",\n      \"quantidade\": 1,\n      \"_id\": \"L6scFo3vyhgzlkDT\"\n    },\n    {\n      \"nome\": \"lapis de cor\",\n      \"preco\": 12,\n      \"descricao\": \"caixa de lápis de cor \",\n      \"quantidade\": 120,\n      \"_id\": \"OBp9AOdcDTKUlerd\"\n    },\n    {\n      \"nome\": \"Mega Drive\",\n      \"preco\": 4700,\n      \"descricao\": \"Console\",\n      \"quantidade\": 1,\n      \"_id\": \"OPw0FGVarS9rxDDD\"\n    },\n    {\n      \"nome\": \"RefItem2 f6ed5511\",\n      \"preco\": 5003,\n      \"descricao\": \"r\",\n      \"quantidade\": 10,\n      \"_id\": \"P3O7KVwMtMK0tXTW\"\n    },\n    {\n      \"nome\": \"Widget rflwfrixdkk\",\n      \"preco\": 310,\n      \"descricao\": \"bench\",\n      \"quantidade\": 20,\n      \"_id\": \"Q0TQAWv0JOrgUvZo\"\n    },\n    {\n      \"nome\": \"Teclado Samsung\",\n      \"preco\": 470,\n      \"descricao\": \"Teclado\",\n      \"quantidade\": 222,\n      \"_id\": \"QM0GuflOfLaYHopA\"\n    },\n    {\n      \"nome\": \"RcptItem two rtSp7ZUeCmbLIObu\",\n      \"preco\": 350,\n      \"descricao\": \"receipt fixture\",\n      \"quantidade\": 8,\n      \"_id\": \"QQ6kucQpJ0KcI2C0\"\n    },\n    {\n      \"nome\": \"RcptDbg ada6c2e819\",\n      \"preco\": 10,\n      \"descricao\": \"d\",\n      \"quantidade\": 2,\n      \"_id\": \"QW1009zamSBJ6XvZ\"\n    },\n    {\n      \"nome\": \"Handcrafted Steel Chicken d5cc89a0-0bbb-4a45-9bc8-edd2d23cd7c0\",\n      \"preco\": 500,\n      \"descricao\": \"The sleek and concerned Towels comes with blue LED lighting for smart functionality\",\n      \"quantidade\": 0,\n      \"_id\": \"RlYC5y1G4m5amc23\"\n    },\n    {\n      \"nome\": \"Widget v2vfyxtihtl\",\n      \"preco\": 310,\n      \"descricao\": \"bench\",\n      \"quantidade\": 18,\n      \"_id\": \"TNJfQl7jxnPoeVlm\"\n    },\n    {\n      \"nome\": \"RefItem0 f6ed5511\",\n      \"preco\": 3001,\n      \"descricao\": \"r\",\n      \"quantidade\": 8,\n      \"_id\": \"UFpLae0lzRwNVGLw\"\n    },\n    {\n      \"nome\": \"Widget benchqmqlsrpr\",\n      \"preco\": 310,\n      \"descricao\": \"bench widget\",\n      \"quantidade\": 18,\n      \"_id\": \"X43MarapydTvMpFP\"\n    },\n    {\n      \"nome\": \"Sleek Silk Tuna\",\n      \"preco\": 500,\n      \"descricao\": \"The sleek and homely Ball comes with plum LED lighting for smart functionality\",\n      \"quantidade\": 8,\n      \"_id\": \"eKlXUyMzlfnmYiIx\"\n    },\n    {\n      \"nome\": \"Pack Widget Alpha\",\n      \"preco\": 100,\n      \"descricao\": \"widget\",\n      \"quantidade\": 1,\n      \"_id\": \"eTcyvnOwYckNW9wd\"\n    },\n    {\n      \"nome\": \"teste produto\",\n      \"preco\": 50,\n      \"descricao\": \"teste\",\n      \"quantidade\": 5,\n      \"_id\": \"ezh2s0B5p7KG8PMV\"\n    },\n    {\n      \"nome\": \"PB da_239_2107@qatest.com\",\n      \"preco\": 350,\n      \"descricao\": \"b\",\n      \"quantidade\": 8,\n      \"_id\": \"fcYI0Ix8DQXNE0GL\"\n    },\n    {\n      \"nome\": \"Produto Teste 5622201e\",\n      \"preco\": 100,\n      \"descricao\": \"Descrição de produto para testes\",\n      \"quantidade\": 10,\n      \"_id\": \"g21vumcLrgk3YCep\"\n    },\n    {\n      \"nome\": \"RcptItem three rtSp7ZUeCmbLIObu\",\n      \"preco\": 499,\n      \"descricao\": \"receipt fixture\",\n      \"quantidade\": 20,\n      \"_id\": \"gMd2w7k9LGp1QmlL\"\n    },\n    {\n      \"nome\": \"W prbr1wbf0zq\",\n      \"preco\": 100,\n      \"descricao\": \"d\",\n      \"quantidade\": 20,\n      \"_id\": \"gUiumjNwpyw44RJ3\"\n    },\n    {\n      \"nome\": \"Produto Teste 90209a74\",\n      \"preco\": 100,\n      \"descricao\": \"Descrição de produto para testes\",\n      \"quantidade\": 10,\n      \"_id\": \"gcl0NH5tMrc2SCwp\"\n    },\n    {\n      \"nome\": \"RefItem0 408b66ac\",\n      \"preco\": 3001,\n      \"descricao\": \"r\",\n      \"quantidade\": 8,\n      \"_id\": \"h2OwG0ocPiyw2tTK\"\n    },\n    {\n      \"nome\": \"Fresh Metal Cheese\",\n      \"preco\": 500,\n      \"descricao\": \"Professional-grade Chair perfect for remorseful training and recreational use\",\n      \"quantidade\": 10,\n      \"_id\": \"hdtEz9D2qE6vErJZ\"\n    },\n    {\n      \"nome\": \"RefItem2 408b66ac\",\n      \"preco\": 5003,\n      \"descricao\": \"r\",\n      \"quantidade\": 10,\n      \"_id\": \"iCVvz5PBizZIccYf\"\n    },\n    {\n      \"nome\": \"Lenovo Vision\",\n      \"preco\": 330,\n      \"descricao\": \"Notebook\",\n      \"quantidade\": 297,\n      \"_id\": \"iHpLcDBAALCuRhlZ\"\n    },\n    {\n      \"nome\": \"Produto Teste 460222f2\",\n      \"preco\": 100,\n      \"descricao\": \"Descrição de produto para testes\",\n      \"quantidade\": 10,\n      \"_id\": \"iTeHeZm6i3ZOYQPC\"\n    },\n    {\n      \"nome\": \"RefItem2 c61d495a\",\n      \"preco\": 5003,\n      \"descricao\": \"r\",\n      \"quantidade\": 10,\n      \"_id\": \"pfIUQQUlc7qHZxxv\"\n    },\n    {\n      \"nome\": \"RefItem1 408b66ac\",\n      \"preco\": 4002,\n      \"descricao\": \"r\",\n      \"quantidade\": 7,\n      \"_id\": \"u1ASbTmT1O5ES7AE\"\n    },\n    {\n      \"nome\": \"RcptItem three GXwuSq7BxSuGk0zy\",\n      \"preco\": 499,\n      \"descricao\": \"receipt fixture\",\n      \"quantidade\": 20,\n      \"_id\": \"vGHWtmzgVLMyUL4t\"\n    },\n    {\n      \"nome\": \"Produto Teste 2b65084f\",\n      \"preco\": 100,\n      \"descricao\": \"Descrição de produto para testes\",\n      \"quantidade\": 8,\n      \"_id\": \"x2oHhe8Bsz1E2L0S\"\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "tc-pro-009 | Buscar produto específico pelo identificador",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\n// const getNomeProduto = responseBody.nome;\r\n// pm.collectionVariables.set(\"nome_produto\", getNomeProduto);\r\n\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Produto correto foi retornado\", function () {\r\n    pm.expect(responseBody.nome).to.exist;\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/produtos/{{id_produto}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "produtos",
+                "{{id_produto}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "tc-pro-009 | Buscar produto específico pelo identificador",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/produtos/7Ko8MDZsQzcpDloG",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "produtos",
+                    "7Ko8MDZsQzcpDloG"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "1; mode=block"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "x-cloud-trace-context",
+                  "value": "93f15a5972df2d3256bb00e9a05645f0"
+                },
+                {
+                  "key": "date",
+                  "value": "Thu, 13 Aug 2026 19:05:37 GMT"
+                },
+                {
+                  "key": "server",
+                  "value": "Google Frontend"
+                },
+                {
+                  "key": "content-length",
+                  "value": "131"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"nome\": \"ASUS Soretto\",\n  \"preco\": 320,\n  \"descricao\": \"Notebook\",\n  \"quantidade\": 297,\n  \"_id\": \"7Ko8MDZsQzcpDloG\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "tc-pro-010 | Buscar produto inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseBody = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Status code is 404\", function () {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Mensagem de inexistência do produto exibida\", function () {\r",
+                  "    pm.expect(responseBody.message).to.eql(\"Produto não encontrado\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/produtos/7Kf8MAZsQzcpDldL",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "produtos",
+                "7Kf8MAZsQzcpDldL"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "tc-pro-010 | Buscar produto inexistente",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/produtos/7Kf8MAZsQzcpDldG",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "produtos",
+                    "7Kf8MAZsQzcpDldG"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "1; mode=block"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "x-cloud-trace-context",
+                  "value": "5e3686a5513a47cb35e0a02f903f3356;o=1"
+                },
+                {
+                  "key": "date",
+                  "value": "Thu, 13 Aug 2026 19:14:26 GMT"
+                },
+                {
+                  "key": "server",
+                  "value": "Google Frontend"
+                },
+                {
+                  "key": "content-length",
+                  "value": "44"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Produto não encontrado\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "tc-pro-011 | Buscar produto por identificador inválido",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Mensagem de invalidação de identificador é retornada\", function () {\r\n    pm.expect(responseBody.id).to.eql(\"id deve ter exatamente 16 caracteres alfanuméricos\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/produtos/7Ko8MD",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "produtos",
+                "7Ko8MD"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "tc-pro-011 | Buscar produto por identificador inválido",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/produtos/7Ko8MD",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "produtos",
+                    "7Ko8MD"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "1; mode=block"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "x-cloud-trace-context",
+                  "value": "5d0f9803ebb1c354f476e442203bc8c1"
+                },
+                {
+                  "key": "date",
+                  "value": "Thu, 13 Aug 2026 19:18:23 GMT"
+                },
+                {
+                  "key": "server",
+                  "value": "Google Frontend"
+                },
+                {
+                  "key": "content-length",
+                  "value": "67"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": \"id deve ter exatamente 16 caracteres alfanuméricos\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "atualizacao",
+      "item": [
+        {
+          "name": "tc-pro-012 | Atualizar produto existente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Registro foi alterado com sucesso\", function() {\r\n    pm.expect(responseBody.message).to.eql(\"Registro alterado com sucesso\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome\": \"{{$randomProductName}}\",\r\n  \"preco\": 470,\r\n  \"descricao\": \"{{$randomProductMaterial}}\",\r\n  \"quantidade\": 381\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/produtos/{{id_produto}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "produtos",
+                "{{id_produto}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "tc-pro-012 | Atualizar produto existente",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"Logitech Vertical\",\r\n  \"preco\": 470,\r\n  \"descricao\": \"Mouse\",\r\n  \"quantidade\": 381\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/produtos/{{id_produto}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "produtos",
+                    "{{id_produto}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "1; mode=block"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "x-cloud-trace-context",
+                  "value": "f2ec3bf8d31e822b1737db42883427b0;o=1"
+                },
+                {
+                  "key": "date",
+                  "value": "Thu, 13 Aug 2026 23:34:49 GMT"
+                },
+                {
+                  "key": "server",
+                  "value": "Google Frontend"
+                },
+                {
+                  "key": "content-length",
+                  "value": "50"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Registro alterado com sucesso\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "tc-pro-013 | Atualizar produto inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 201\", function () {\r\n    pm.response.to.have.status(201);\r\n});\r\n\r\npm.test(\"Produto registrado após tentativa de atualizar produto por identificador inexistente\",function () {\r\n    pm.expect(responseBody.message).to.eql(\"Cadastro realizado com sucesso\");\r\n    pm.expect(responseBody._id).to.exist;\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome\": \"{{$randomProductName}}\",\r\n  \"preco\": 375,\r\n  \"descricao\": \"{{$randomProductMaterial}}\",\r\n  \"quantidade\": 284\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/produtos/87Hsd9U7ujL8MRLn",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "produtos",
+                "87Hsd9U7ujL8MRLn"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "tc-pro-013 | Atualizar produto inexistente",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"Samsung BEM Aleatório\",\r\n  \"preco\": 375,\r\n  \"descricao\": \"Smartphone\",\r\n  \"quantidade\": 284\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/produtos/87Hsd9U7ujL8MRLm",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "produtos",
+                    "87Hsd9U7ujL8MRLm"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "1; mode=block"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "x-cloud-trace-context",
+                  "value": "d583a0419ababe5f241161d6ab175082;o=1"
+                },
+                {
+                  "key": "date",
+                  "value": "Thu, 13 Aug 2026 23:55:19 GMT"
+                },
+                {
+                  "key": "server",
+                  "value": "Google Frontend"
+                },
+                {
+                  "key": "content-length",
+                  "value": "82"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Cadastro realizado com sucesso\",\n  \"_id\": \"4nWMWfpwoM3hIrkh\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "tc-pro-014 | Atualizar produto com nome em branco",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Mensagem de falta de preenchimento do campo nome exibida\", function() {\r\n    pm.expect(responseBody.nome).to.equal(\"nome não pode ficar em branco\")\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome\": \"\",\r\n  \"preco\": 375,\r\n  \"descricao\": \"Smartphone\",\r\n  \"quantidade\": 284\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/produtos/77Hzd0U7ujL8M3Rw",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "produtos",
+                "77Hzd0U7ujL8M3Rw"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "tc-pro-014 | Atualizar produto com nome sem valor",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"\",\r\n  \"preco\": 375,\r\n  \"descricao\": \"Smartphone\",\r\n  \"quantidade\": 284\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/produtos/77Hzd0U7ujL8M3Rw",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "produtos",
+                    "77Hzd0U7ujL8M3Rw"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "1; mode=block"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "x-cloud-trace-context",
+                  "value": "5a99414c10e4e5688e0bf019de1dbae2;o=1"
+                },
+                {
+                  "key": "date",
+                  "value": "Thu, 13 Aug 2026 23:44:47 GMT"
+                },
+                {
+                  "key": "server",
+                  "value": "Google Frontend"
+                },
+                {
+                  "key": "content-length",
+                  "value": "48"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"nome\": \"nome não pode ficar em branco\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "tc-pro-015 | Atualizar produto com preço em branco",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Mensagem de falta de preenchimento de preço exibida\", function() {\r\n    pm.expect(responseBody.preco).to.equal(\"preco deve ser um número\")\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome\": \"Motorola g56\",\r\n  \"preco\": \"\",\r\n  \"descricao\": \"Smartphone\",\r\n  \"quantidade\": 284\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/produtos/{{id_produto}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "produtos",
+                "{{id_produto}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "tc-pro-015 | Atualizar produto com preço em branco",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"Motorola g56\",\r\n  \"preco\": \"\",\r\n  \"descricao\": \"Smartphone\",\r\n  \"quantidade\": 284\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/produtos/77Hzd0U7ujL8M3Rw",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "produtos",
+                    "77Hzd0U7ujL8M3Rw"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "1; mode=block"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "x-cloud-trace-context",
+                  "value": "5764fdc6e3e25f7b5ea032202c068d1a"
+                },
+                {
+                  "key": "date",
+                  "value": "Thu, 13 Aug 2026 23:53:50 GMT"
+                },
+                {
+                  "key": "server",
+                  "value": "Google Frontend"
+                },
+                {
+                  "key": "content-length",
+                  "value": "44"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"preco\": \"preco deve ser um número\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "tc-pro-016 | Atualizar produto com preço com valor negativo",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Mensagem de preenchimento do campo preço com valor negativo é exibida\", function() {\r\n    pm.expect(responseBody.preco).to.equal(\"preco deve ser um número positivo\")\r\n});\r\n"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome\": \"Motorola g56\",\r\n  \"preco\": -99,\r\n  \"descricao\": \"Smartphone\",\r\n  \"quantidade\": 284\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/produtos/{{id_produto}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "produtos",
+                "{{id_produto}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "tc-pro-016 | Atualizar produto com preço com valor negativo",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"Motorola g56\",\r\n  \"preco\": -99,\r\n  \"descricao\": \"Smartphone\",\r\n  \"quantidade\": 284\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/produtos/77Hzd0U7ujL8M3Rw",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "produtos",
+                    "77Hzd0U7ujL8M3Rw"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "1; mode=block"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "x-cloud-trace-context",
+                  "value": "9f9e54b61ac30cd54e3a17fef15c80b2"
+                },
+                {
+                  "key": "date",
+                  "value": "Thu, 13 Aug 2026 23:59:16 GMT"
+                },
+                {
+                  "key": "server",
+                  "value": "Google Frontend"
+                },
+                {
+                  "key": "content-length",
+                  "value": "53"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"preco\": \"preco deve ser um número positivo\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "tc-pro-017 | Atualizar produto com descrição em branco",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\n\r\npm.test(\"Mensagem de falta de preenchimento do campo descrição exibida\", function() {\r\n    pm.expect(responseBody.descricao).to.equal(\"descricao não pode ficar em branco\")\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome\": \"Motorola g56\",\r\n  \"preco\": 230,\r\n  \"descricao\": \"\",\r\n  \"quantidade\": 284\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/produtos/77Hzd0U7ujL8M3Rw",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "produtos",
+                "77Hzd0U7ujL8M3Rw"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "tc-pro-017 | Atualizar produto com descrição em branco",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"Motorola g56\",\r\n  \"preco\": 230,\r\n  \"descricao\": \"\",\r\n  \"quantidade\": 284\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/produtos/77Hzd0U7ujL8M3Rw",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "produtos",
+                    "77Hzd0U7ujL8M3Rw"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "1; mode=block"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "x-cloud-trace-context",
+                  "value": "88a34d4ec4ceb168f8536392dfb3c558;o=1"
+                },
+                {
+                  "key": "date",
+                  "value": "Fri, 14 Aug 2026 00:03:13 GMT"
+                },
+                {
+                  "key": "server",
+                  "value": "Google Frontend"
+                },
+                {
+                  "key": "content-length",
+                  "value": "58"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"descricao\": \"descricao não pode ficar em branco\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "tc-pro-018 | Atualizar produto com quantidade em branco",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Mensagem de falta de preenchimento do campo quantidade exibida\", function() {\r\n    pm.expect(responseBody.quantidade).to.equal(\"quantidade deve ser um número\")\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome\": \"Motorola g56\",\r\n  \"preco\": 230,\r\n  \"descricao\": \"Smartphone\",\r\n  \"quantidade\": \"\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/produtos/77Hzd0U7ujL8M3Rw",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "produtos",
+                "77Hzd0U7ujL8M3Rw"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "tc-pro-018 | Atualizar produto com quantidade em branco",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"Motorola g56\",\r\n  \"preco\": 230,\r\n  \"descricao\": \"Smartphone\",\r\n  \"quantidade\": \"\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/produtos/77Hzd0U7ujL8M3Rw",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "produtos",
+                    "77Hzd0U7ujL8M3Rw"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "1; mode=block"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "x-cloud-trace-context",
+                  "value": "b48da21e0b5cd7fe5ea8fa91ec641e28;o=1"
+                },
+                {
+                  "key": "date",
+                  "value": "Fri, 14 Aug 2026 00:06:12 GMT"
+                },
+                {
+                  "key": "server",
+                  "value": "Google Frontend"
+                },
+                {
+                  "key": "content-length",
+                  "value": "54"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"quantidade\": \"quantidade deve ser um número\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "tc-pro-019 | Atualizar produto com quantidade com valor negativo",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\n\r\npm.test(\"Mensagem de preenchimento do campo quantidade com valor negativo exibida\", function() {\r\n    pm.expect(responseBody.quantidade).to.equal(\"quantidade deve ser maior ou igual a 0\")\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome\": \"Motorola g30\",\r\n  \"preco\": 199,\r\n  \"descricao\": \"Smartphone\",\r\n  \"quantidade\": -284\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/produtos/{{id_produto}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "produtos",
+                "{{id_produto}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "tc-pro-019 | Atualizar produto com quantidade com valor negativo",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"Motorola g30\",\r\n  \"preco\": 199,\r\n  \"descricao\": \"Smartphone\",\r\n  \"quantidade\": -284\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/produtos/77Hzd0U7ujL8M3Rw",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "produtos",
+                    "77Hzd0U7ujL8M3Rw"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "1; mode=block"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "x-cloud-trace-context",
+                  "value": "14cbade563145063fec46f8124b27867"
+                },
+                {
+                  "key": "date",
+                  "value": "Fri, 14 Aug 2026 00:09:07 GMT"
+                },
+                {
+                  "key": "server",
+                  "value": "Google Frontend"
+                },
+                {
+                  "key": "content-length",
+                  "value": "62"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"quantidade\": \"quantidade deve ser maior ou igual a 0\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "tc-pro-020 | Atualizar produto com nome já existente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const responseBody = pm.response.json();\r\n\r\npm.test(\"Status code is 400\", function () {\r\n    pm.response.to.have.status(400);\r\n});\r\n\r\npm.test(\"Um produto com o nome colocado já existe\", function() {\r\n    pm.expect(responseBody.message).to.eql(\"Já existe produto com esse nome\");\r\n});\r\n\r\n"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const getResponse = await pm.sendRequest({\r\n    url: pm.environment.get(\"base_url\") + \"/produtos\",\r\n    method: \"GET\",\r\n})\r\n\r\nconst getResponseBody = getResponse.json();\r\nconst products = getResponseBody.produtos;\r\n\r\nconst randomProductIndex = Math.floor(Math.random() * products.length);\r\nconst randomProduct = products[randomProductIndex];\r\n\r\nconst getExistingRandomProductName = randomProduct.nome;\r\npm.collectionVariables.set(\"nome_produto_existente\", getExistingRandomProductName);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome\": \"{{nome_produto_existente}}\",\r\n  \"preco\": 470,\r\n  \"descricao\": \"{{$randomProductMaterial}}\",\r\n  \"quantidade\": 381\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/produtos/{{id_produto}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "produtos",
+                "{{id_produto}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "tc-pro-020 | Atualizar produto com nome já existente",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"Logitech Vertical\",\r\n  \"preco\": 470,\r\n  \"descricao\": \"Mouse\",\r\n  \"quantidade\": 381\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/produtos/77Hzd0U7ujL3M3Re",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "produtos",
+                    "77Hzd0U7ujL3M3Re"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 400
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "1; mode=block"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "x-cloud-trace-context",
+                  "value": "68313ebb9531e601516c3b2e195e8750"
+                },
+                {
+                  "key": "date",
+                  "value": "Fri, 14 Aug 2026 14:51:14 GMT"
+                },
+                {
+                  "key": "server",
+                  "value": "Google Frontend"
+                },
+                {
+                  "key": "content-length",
+                  "value": "53"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Já existe produto com esse nome\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "exclusao",
+      "item": [
+        {
+          "name": "tc-pro-021 | Excluir produto existente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseBody = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Produto foi excluído\", function() {\r",
+                  "    pm.expect(responseBody.message).to.eql(\"Registro excluído com sucesso\")\r",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/produtos/{{id_produto}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "produtos",
+                "{{id_produto}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "excluir produto (parcial)",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/produtos/1pRlQsoSx2yiRaQ3",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "produtos",
+                    "1pRlQsoSx2yiRaQ3"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 200
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "1; mode=block"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "x-cloud-trace-context",
+                  "value": "381189ae033326b73a9efc7b0f364b4b"
+                },
+                {
+                  "key": "date",
+                  "value": "Fri, 14 Aug 2026 15:04:24 GMT"
+                },
+                {
+                  "key": "server",
+                  "value": "Google Frontend"
+                },
+                {
+                  "key": "content-length",
+                  "value": "51"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Registro excluído com sucesso\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "tc-pro-022 | Excluir produto inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseBody = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Nenhum registro foi excluído\", function () {\r",
+                  "    pm.expect(responseBody.message).to.eql(\"Nenhum registro excluído\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/produtos/1pRlQsoSx2yiZuP1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "produtos",
+                "1pRlQsoSx2yiZuP1"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "tc-pro-022 | Excluir produto inexistente",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/produtos/1pRlQsoSx2yiZuP1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "produtos",
+                    "1pRlQsoSx2yiZuP1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 200
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "1; mode=block"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "x-cloud-trace-context",
+                  "value": "6dc9a15c5390ed8d6b5a7a8250f597db;o=1"
+                },
+                {
+                  "key": "date",
+                  "value": "Sat, 15 Aug 2026 02:02:02 GMT"
+                },
+                {
+                  "key": "server",
+                  "value": "Google Frontend"
+                },
+                {
+                  "key": "content-length",
+                  "value": "46"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Nenhum registro excluído\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "tc-pro-023 | Atualizar produto por identificador inválido",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseBody = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Status code is 400\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Mensagem de preenchimento de identificador inválido está sendo exibida\", function() {\r",
+                  "    pm.expect(responseBody.id).to.eql(\"id deve ter exatamente 16 caracteres alfanuméricos\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/produtos/1pRlQsoS",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "produtos",
+                "1pRlQsoS"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "tc-pro-023 | Atualizar produto por identificador inválido",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/produtos/1pRlQsoS",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "produtos",
+                    "1pRlQsoS"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 400
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "1; mode=block"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "x-cloud-trace-context",
+                  "value": "61744b8319ae6c3fd3390c887f24770d;o=1"
+                },
+                {
+                  "key": "date",
+                  "value": "Sat, 15 Aug 2026 02:08:38 GMT"
+                },
+                {
+                  "key": "server",
+                  "value": "Google Frontend"
+                },
+                {
+                  "key": "content-length",
+                  "value": "67"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"id deve ter exatamente 16 caracteres alfanuméricos\"\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token_dinamico}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "exec": [
+          "pm.environment.unset(\"token_dinamico\");\r",
+          "\r",
+          "const getResponse = await pm.sendRequest({\r",
+          "    url: pm.environment.get(\"base_url\") + \"/usuarios\",\r",
+          "    method: \"GET\"\r",
+          "});\r",
+          "\r",
+          "const getResponseBody = getResponse.json();\r",
+          "const users = getResponseBody.usuarios;\r",
+          "\r",
+          "const administradorUsers = users.filter(user => user.administrador === \"true\");\r",
+          "const randomAdministratorUserIndex = Math.floor(Math.random() * administradorUsers.length);\r",
+          "\r",
+          "let getRandomEmail = administradorUsers[randomAdministratorUserIndex].email;\r",
+          "let getRandomPassword = administradorUsers[randomAdministratorUserIndex].password;\r",
+          "\r",
+          "pm.environment.set(\"user_email\", getRandomEmail);\r",
+          "pm.environment.set(\"user_password\", getRandomPassword);\r",
+          "\r",
+          "const postResponse = await pm.sendRequest({\r",
+          "    url: pm.environment.get(\"base_url\") + \"/login\",\r",
+          "    method: \"POST\",\r",
+          "    header: {\r",
+          "        \"Content-Type\": \"application/json\"\r",
+          "    },\r",
+          "    body: {\r",
+          "        mode: \"raw\",\r",
+          "        raw: JSON.stringify({\r",
+          "            \"email\": getRandomEmail,\r",
+          "            \"password\": getRandomPassword\r",
+          "        })\r",
+          "    }\r",
+          "});\r",
+          "\r",
+          "const postResponseBody = postResponse.json();\r",
+          "const token = postResponseBody.authorization.replace(\"Bearer \", \"\");\r",
+          "pm.environment.set(\"token_dinamico\", token);"
+        ],
+        "type": "text/javascript"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "id_produto",
+      "value": ""
+    },
+    {
+      "key": "nome_produto",
+      "value": ""
+    },
+    {
+      "key": "nome_produto_existente",
+      "value": ""
+    }
+  ]
+}
