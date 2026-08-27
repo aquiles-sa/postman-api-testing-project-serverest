@@ -28,7 +28,7 @@
 
 ```json
 {
-  "nome": "Motorola g56",
+  "nome": "Motorola g57",
   "preco": -99,
   "descricao": "Smartphone",
   "quantidade": 284
