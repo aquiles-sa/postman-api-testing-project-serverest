@@ -2,7 +2,7 @@
 
 ## Sobre o Projeto
 
-Esse projeto se trata de realizar testes manuais e criar testes automatizados utilizando a ferramenta Postman para a API pública do [ServeRest](https://serverest.dev/?lang=pt-BR), além de exercitar a criação de documentação de testes, como um plano de teste, condições de teste, casos de teste, relatórios de defeitos e uma matriz de rastreabilidade de testes.
+Esse projeto se trata de realizar testes manuais e criar scripts de testes utilizando a ferramenta Postman para a API pública do [ServeRest](https://serverest.dev/?lang=pt-BR), além de exercitar a criação de documentação de testes, como um plano de teste, condições de teste, casos de teste, relatórios de defeitos e uma matriz de rastreabilidade de testes.
 
 ---
 
