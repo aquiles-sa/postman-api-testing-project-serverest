@@ -116,5 +116,6 @@ Os testes realizados forneceram evidências de comportamentos dos módulos avali
 
 ## Autor
 
-QA: Aquiles Araujo | [LinkedIn](https://www.linkedin.com/in/aquiles-araujo-035112251/) <br>
+QA: Aquiles Araujo <br> 
+[LinkedIn](https://www.linkedin.com/in/aquiles-araujo-035112251/) <br>
 Email: aquiles2ws@gmail.com
